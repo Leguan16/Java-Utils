@@ -170,7 +170,7 @@ public class WeightedElements<T> {
     }
 
     /**
-     * @return A random element from the internal list of all WeightedElements while factoring each element's weight.
+     * @return A random element from the internal list of all WeightedElements while factoring in each element's weight.
      */
     public T getRandom() {
         return getRandom(elements);
