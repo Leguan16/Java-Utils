@@ -46,7 +46,7 @@ public class TickUtils {
             ticksRecorded++;
             if (ticksRecorded >= ticks) break;
         }
-        return (double) total / TICK_MSPT.length;
+        return (double) total / ticksRecorded;
     }
 
     /**
