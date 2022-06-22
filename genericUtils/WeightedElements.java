@@ -175,4 +175,16 @@ public class WeightedElements<T> {
     public T getRandom() {
         return getRandom(elements);
     }
+
+
+
+//    public static String example() {
+//        //Creates a new WeightedElements object, adds 4 weighted elements to it, and gets a random element from it.
+//        return new WeightedElements<String>()
+//                .add("There is a 50% chance to return this string.", 50)
+//                .add("There is a 25% chance to return this string", 25)
+//                .add("There is a 15% chance to return this string", 15)
+//                .add("There is a 10% chance to return this string", 10)
+//                .getRandom();
+//    }
 }
