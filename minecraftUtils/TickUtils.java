@@ -41,7 +41,12 @@ public class TickUtils {
         if (ticks == 0L) return 0;
         int ticksRecorded = 0;
         long total = 0;
+        boolean first = true;
         for (long mspt : TICK_MSPT) {
+            if (first) {
+                first = false;
+                continue;
+            }
             if (mspt == 0) continue; //Skip ticks that haven't been recorded yet
             total += mspt;
             ticksRecorded++;
