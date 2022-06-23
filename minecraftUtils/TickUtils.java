@@ -52,6 +52,8 @@ public class TickUtils {
             ticksRecorded++;
             if (ticksRecorded >= ticks) break;
         }
+        System.out.println(ticksRecorded);
+        if (ticksRecorded == 0) return 0;
         return (double) total / ticksRecorded;
     }
 
