@@ -113,7 +113,7 @@ public class TickUtils {
         void onTickStart(ServerTickStartEvent event) {
             if (TICK_MSPT[0] > 100000000000L) TICK_MSPT[0] = 0;
             System.arraycopy(TICK_MSPT, 0, TICK_MSPT, 1, TICK_MSPT.length - 1); //Shift the array right
-            TICK_MSPT[0] = System.nanoTime(); //Set the first element to the current time in ms (the time the tick started), later calculate the actual tick duration by subtracting this time from the epoc of the time the tick ends
+            TICK_MSPT[0] = System.nanoTime(); //Set the first element to the current time in ns (the time the tick started), later calculate the actual tick duration by subtracting this time from the end timing of the tick
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
