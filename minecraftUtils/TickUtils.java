@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
 
 
 /**
@@ -37,7 +38,7 @@ public class TickUtils {
      */
     public static double getMSPT(int ticks) {
         ticks = Math.max(0, Math.min(ticks, 12000)); //Verify that the `ticks` is between 0 and 12,000, if not, correct it
-        if (ticks == 0) return 0;
+        if (ticks == 0L) return 0;
         int ticksRecorded = 0;
         long total = 0;
         for (long mspt : TICK_MSPT) {
@@ -102,13 +103,13 @@ public class TickUtils {
     static class TickListener implements Listener {
         @EventHandler(priority = EventPriority.LOWEST)
         void onTickStart(ServerTickStartEvent event) {
-            System.arraycopy(TICK_MSPT, 1, TICK_MSPT, 0, TICK_MSPT.length - 1); //Shift the array left
-            TICK_MSPT[TICK_MSPT.length - 1] = System.currentTimeMillis(); //Set the last element to the current time in ms (the time the tick started), later calculate the actual tick duration by subtracting this time from the epoc of the time the tick ends
+            System.arraycopy(TICK_MSPT, 0, TICK_MSPT, 1, TICK_MSPT.length - 1); //Shift the array right
+            TICK_MSPT[0] = System.currentTimeMillis(); //Set the first element to the current time in ms (the time the tick started), later calculate the actual tick duration by subtracting this time from the epoc of the time the tick ends
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
         void onTickEnd(ServerTickEndEvent e) {
-            TICK_MSPT[TICK_MSPT.length - 1] = System.currentTimeMillis() - TICK_MSPT[TICK_MSPT.length - 1]; //Set the last value in the array to the time it took to complete the tick
+            TICK_MSPT[0] = System.currentTimeMillis() - TICK_MSPT[0]; //Set the first value in the array to the time it took to complete the tick
         }
     }
 }
