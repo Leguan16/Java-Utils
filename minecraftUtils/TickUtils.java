@@ -53,7 +53,6 @@ public class TickUtils {
             if (ticksRecorded >= ticks) break;
         }
         if (ticksRecorded == 0) return 0;
-        System.out.println(total);
         return (double) total / ticksRecorded
                 / 1000000; //Convert to milliseconds
     }
