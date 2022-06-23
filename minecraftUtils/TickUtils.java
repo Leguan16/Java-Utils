@@ -30,7 +30,7 @@ public class TickUtils {
 
 
     //Array to hold tick timings
-    static long[] TICK_MSPT = new long[20 * 60 * 10];
+    static double[] TICK_MSPT = new double[20 * 60 * 10];
 
     /**
      * @param ticks The number of ticks to get the average MSPT for. Must be between 0 and 12,000, inclusive.
@@ -40,9 +40,9 @@ public class TickUtils {
         ticks = Math.max(0, Math.min(ticks, 12000)); //Verify that the `ticks` is between 0 and 12,000, if not, correct it
         if (ticks == 0L) return 0;
         int ticksRecorded = 0;
-        long total = 0;
+        double total = 0;
         boolean first = true;
-        for (long mspt : TICK_MSPT) {
+        for (double mspt : TICK_MSPT) {
             if (first) {
                 first = false;
                 continue;
@@ -53,7 +53,7 @@ public class TickUtils {
             if (ticksRecorded >= ticks) break;
         }
         if (ticksRecorded == 0) return 0;
-        return (double) total / ticksRecorded;
+        return total / ticksRecorded;
     }
 
     /**
@@ -109,12 +109,13 @@ public class TickUtils {
     static class TickListener implements Listener {
         @EventHandler(priority = EventPriority.LOWEST)
         void onTickStart(ServerTickStartEvent event) {
+            if (TICK_MSPT[0] > 1000000) TICK_MSPT[0] = 0;
             System.arraycopy(TICK_MSPT, 0, TICK_MSPT, 1, TICK_MSPT.length - 1); //Shift the array right
             TICK_MSPT[0] = System.currentTimeMillis(); //Set the first element to the current time in ms (the time the tick started), later calculate the actual tick duration by subtracting this time from the epoc of the time the tick ends
         }
 
         @EventHandler(priority = EventPriority.MONITOR)
-        void onTickEnd(ServerTickEndEvent e) {
+        void onTickEnd(ServerTickEndEvent e) { //TODO: factor in nano seconds for more accurate timings
             TICK_MSPT[0] = System.currentTimeMillis() - TICK_MSPT[0]; //Set the first value in the array to the time it took to complete the tick
         }
     }
