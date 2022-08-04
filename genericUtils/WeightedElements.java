@@ -18,21 +18,16 @@ public class WeightedElements<T> {
      * @param weightedElements A list of weighted elements.
      * @return A random element from the list while factoring in the elements' weights.
      */
-    @NotNull
     public static <T> T getRandom(List<WeightedElement<T>> weightedElements) {
-        List<T> elements = new ArrayList<>();
-        List<Double> weights = new ArrayList<>();
-        for (WeightedElement<T> weightedElement : weightedElements) elements.add(weightedElement.element);
-        for (WeightedElement<T> weightedElement : weightedElements) weights.add(weightedElement.weight);
         double totalWeight = 0;
-        for (double weight : weights) totalWeight += weight;
+        for (WeightedElement<T> weightE : weightedElements) totalWeight += weightE.weight;
         double random = Math.random() * totalWeight;
         double currentWeight = 0;
-        for (int i = 0; i < elements.size(); i++) {
-            currentWeight += weights.get(i);
-            if (random < currentWeight) return elements.get(i);
+        for (WeightedElement<T> weightedElement : weightedElements) {
+            currentWeight += weightedElement.weight;
+            if (random < currentWeight) return weightedElement.element;
         }
-        return elements.get(0);
+        return weightedElements.get(0).element;
     }
 
     /**
