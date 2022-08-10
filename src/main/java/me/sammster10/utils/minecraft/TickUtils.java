@@ -1,4 +1,4 @@
-package net.staticstudios.utils;
+package me.sammster10.utils.minecraft;
 
 import com.destroystokyo.paper.event.server.ServerTickEndEvent;
 import com.destroystokyo.paper.event.server.ServerTickStartEvent;
