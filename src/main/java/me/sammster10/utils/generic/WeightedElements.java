@@ -1,4 +1,4 @@
-package net.staticstudios.utils;
+package me.sammster10.utils.generic;
 
 import org.jetbrains.annotations.NotNull;
 
